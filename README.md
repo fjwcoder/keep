@@ -1,14 +1,21 @@
-ThinkPHP 5.0
+基于ThinkPHP 5.0开发KEEP CODING
 ===============
 
-[![Total Downloads](https://poser.pugx.org/topthink/think/downloads)](https://packagist.org/packages/topthink/think)
+<!--[![Total Downloads](https://poser.pugx.org/topthink/think/downloads)](https://packagist.org/packages/topthink/think)
 [![Latest Stable Version](https://poser.pugx.org/topthink/think/v/stable)](https://packagist.org/packages/topthink/think)
 [![Latest Unstable Version](https://poser.pugx.org/topthink/think/v/unstable)](https://packagist.org/packages/topthink/think)
-[![License](https://poser.pugx.org/topthink/think/license)](https://packagist.org/packages/topthink/think)
+[![License](https://poser.pugx.org/topthink/think/license)](https://packagist.org/packages/topthink/think)-->
 
-ThinkPHP5在保持快速开发和大道至简的核心理念不变的同时，PHP版本要求提升到5.4，对已有的CBD模式做了更深的强化，优化核心，减少依赖，基于全新的架构思想和命名空间实现，是ThinkPHP突破原有框架思路的颠覆之作，其主要特性包括：
+<!--ThinkPHP5在保持快速开发和大道至简的核心理念不变的同时，PHP版本要求提升到5.4，对已有的CBD模式做了更深的强化，优化核心，减少依赖，基于全新的架构思想和命名空间实现，是ThinkPHP突破原有框架思路的颠覆之作，其主要特性包括：-->
 
- + 基于命名空间和众多PHP新特性
+KEEP模板，基于THINKPHP 5.0框架开发。是开发者自己学习时，尝试做的模板。
+
+后台特性：
+
+ + 强大的权限管理
+ + 用户分组/级别管理
+
+ <!--+ 基于命名空间和众多PHP新特性
  + 核心功能组件化
  + 强化路由功能
  + 更灵活的控制器
@@ -24,7 +31,7 @@ ThinkPHP5在保持快速开发和大道至简的核心理念不变的同时，PH
  + 方便的自动生成定义
  + 真正惰性加载
  + 分布式环境支持
- + 更多的社交类库
+ + 更多的社交类库-->
 
 > ThinkPHP5的运行环境要求PHP5.4以上。
 
@@ -32,9 +39,30 @@ ThinkPHP5在保持快速开发和大道至简的核心理念不变的同时，PH
 
 ## 目录结构
 
-初始的目录结构如下：
+目录结构如下：
 
 ~~~
+ KEEP
+ ├─ADMIN
+ │  ├─网站配置
+ │  ├─扩展管理
+ │  ├─
+ │  ├─
+ │
+ │
+ │
+ │
+ │
+ │
+ │
+ │
+ │
+ │
+ │
+ │
+
+~~~
+<!--~~~
 www  WEB部署目录（或者子目录）
 ├─application           应用目录
 │  ├─common             公共模块目录（可以更改）
@@ -80,11 +108,11 @@ www  WEB部署目录（或者子目录）
 ├─LICENSE.txt           授权说明文件
 ├─README.md             README 文件
 ├─think                 命令行入口文件
-~~~
+~~~-->
 
-> router.php用于php自带webserver支持，可用于快速测试
+<!--> router.php用于php自带webserver支持，可用于快速测试
 > 切换到public目录后，启动命令：php -S localhost:8888  router.php
-> 上面的目录结构和名称是可以改变的，这取决于你的入口文件和配置参数。
+> 上面的目录结构和名称是可以改变的，这取决于你的入口文件和配置参数。-->
 
 ## 命名规范
 
