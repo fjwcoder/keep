@@ -142,7 +142,7 @@ class Node extends Manage
                     $html .= '</div>';
                 }else{
                     if($node[$i]['isnode'] == 1){
-                        $html .= '<div class="panel-body node-panel-body">';
+                        $html .= '<div class=" panel-body node-panel-body">';
                     }else{
                         $html .= '<label class="checkbox-inline">';
                         $html .= '<input id="menu-'.$node[$i]['id'].'" type="checkbox" name="node[]" value="'.$node[$i]['id_list'].'"> '.$node[$i]['title'];

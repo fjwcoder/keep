@@ -1,6 +1,6 @@
 <{extend name="./index/iframe"}>
 <{block name="content"}>
-<form class="form-horizontal" method="post" role="form" action="<{$header.form}>">
+<form class="form-horizontal" method="post" role="form" action="<{:url('edit')}>">
     <div class=" row wp_100 ">
         <{volist name="config" id="vo"}>
             <{if $vo.show == 1}>

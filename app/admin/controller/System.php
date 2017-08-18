@@ -34,8 +34,11 @@ class System extends Manage
     {   
         $navid = input('navid', 0, 'intval');
         $config = webConfig();
+
         $this->assign('config', $config);
-        $this->assign('header', ['icon'=>'glyphicon-cog','title'=>'系统配置->系统配置->基本配置', 'form'=>"/$this->module/$this->controller/edit", 
+        $this->assign('header', ['icon'=>'glyphicon-cog','title'=>'系统配置->系统配置->基本配置', 
+        'form'=>'index',
+        // 'form'=>"/$this->module/$this->controller/edit", 
         'navid'=>$navid]);
         return $this->fetch();
     }
@@ -73,7 +76,25 @@ class System extends Manage
 
     }
 
+    public function add(){
 
+        if(request()->post()){
+            return $this->addPost();
+        }
+        $navid = input('navid', 0, 'intval');
+        $this->assign('header', ['icon'=>'glyphicon-cog','title'=>'系统配置->系统配置->添加配置', 
+        'form'=>'add', 'navid'=>$navid]);
+        return $this->fetch();
+    }
+
+    public function addPost(){
+        $post = request()->post();
+        foreach($post['config'] as $k=>$v){
+            $data[$k] = $v;
+        }
+        #需要检测name和title字段的唯一性
+        return dump($data);
+    }
 
 
 }

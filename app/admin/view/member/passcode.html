@@ -3,6 +3,15 @@
 
     <form class="form-horizontal" method="post" role="form" action="<{$header.form}>">
         <div class="form-group">
+            <label for="headimg" class="col-sm-3 control-label"></label>
+            <div class=" member-headimg col-sm-3 col-md-3">
+                <a href="<{:url('edit', ['navid'=>$header.navid, 'id'=>$user.id])}>" class="thumbnail" title="用户信息">
+                    <img class=" member-headimg form-control" src="<{$user.headimg}>" alt="用户头像未显示"/>
+                </a>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label for="old-password" class="col-sm-3 control-label">旧密码：</label>
             <div class="col-sm-5">  
                 <input id="old-password" type="text" class="form-control" name="old-password" value="" required/>

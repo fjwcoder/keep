@@ -3,18 +3,19 @@
     <div class=" row wp_100 iframe-header">
         <div class="form-group form-group-iframe-header">
             <div class="col-xs-12 col-sm-6 ">
-                <{if $header.form != "list" }>
+                <{if $header.form == "list" || $header.form == "index"}>
+                <a href="<{:url('add', ['navid'=>$header.navid])}>">
+                    <div class="iframe-header-back pull-left text-center" title="添加">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+                </a>
+                <{else}>
                 <a href="javascript: history.go(-1);">
                     <div class="iframe-header-back pull-left text-center" title="返回">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                     </div>
                 </a>
-                <{else}>
-                    <a href="<{:url('add', ['navid'=>$header.navid])}>">
-                        <div class="iframe-header-back pull-left text-center" title="添加">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </div>
-                    </a>
+                    
                 <{/if}>
                 <div class="iframe-header-info pull-left text-left" title="页面信息">
                     <div class="iframe-header-icon text-center pull-left">

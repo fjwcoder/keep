@@ -36,12 +36,6 @@ class Member extends Manage
     #用户列表
     public function index()
     {   
-        // if(Session::get(Config::get('USER_KEY'))){
-        //     print_r('true');
-        // }else{
-        //     print_r('false');
-        // }
-        // print_r(Session::get(Config::get('USER_KEY'))?'存在':'不存在');
         $navid = input('navid', 8, 'intval');
         $nav = adminNav();
         $keyword = input('post.keyword', '', 'htmlspecialchars,trim');
