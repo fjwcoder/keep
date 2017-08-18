@@ -31,7 +31,7 @@ class Member extends Manage
 
     // public function _initialize(){
     //     $this->module = request()->module();
-    //     request()->controller() = request()->controller();
+    //     $this->controller = request()->controller();
     // }
     #用户列表
     public function index()
