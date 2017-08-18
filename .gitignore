@@ -1,0 +1,6 @@
+!.gitignore
+runtime/
+*.zip
+*.rar
+*.bak
+*.log

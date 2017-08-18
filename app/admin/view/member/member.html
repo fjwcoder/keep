@@ -1,0 +1,167 @@
+<{extend name="./index/iframe"}>
+<{block name="content"}>
+    <form class="form-horizontal" method="post" role="form" action="<{$header.form}>" enctype="multipart/form-data">
+        <{if $header.form=="edit"}>
+        <div class="form-group">
+            <label for="headimg" class="col-sm-3 control-label"></label>
+            <div class=" member-headimg col-sm-3 col-md-3">
+                <a href="javascript: void(0);" class="thumbnail">
+                    <img class=" member-headimg form-control" src="<{$result.headimg}>" alt="用户头像未显示"/>
+                </a>
+            </div>
+        </div>
+        <{/if}>
+
+        <div class="form-group">
+            <label for="name" class="col-sm-3 control-label">账号：</label>
+            <div class="col-sm-5">  
+                <input id="name" type="text" class="form-control" name="name" <{if $header.form=="add"}>value=""<{else}>value="<{$result.name}>" readonly <{/if}>required/>
+            </div>
+        </div>
+
+        <{if $header.form=="add"}> 
+        <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">密码：</label>
+            <div class="col-sm-5">
+                <input id="password" type="text" class="form-control" name="password" value="123456" required/>
+            </div>
+        </div>
+        <{/if}>
+
+        <div class="form-group">
+            <label for="title" class="col-sm-3 control-label">负责人：</label>
+            <div class="col-sm-5">
+                <input id="title" type="text" class="form-control" name="title" <{if $header.form=="add"}>value=""<{else}>value="<{$result.title}>" <{/if}> required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="branch" class="col-sm-3 control-label">部门：</label>
+            <div class="col-sm-5">
+                <select class="form-control" name="branch" required>
+                    <option value="0">==不设部门==</option>
+                    <{if $header.form=="add"}>
+                        <{volist name="branch" id="vo"}>
+                        <option value="<{$vo.id}>"><{$vo.title}></option>
+                        <{/volist}>
+                    <{else}>
+                        <{volist name="branch" id="vo"}>
+                            <{if $result.branch == $vo.id}>
+                            <option value="<{$vo.id}>" selected><{$vo.title}></option>
+                            <{else}>
+                            <option value="<{$vo.id}>"><{$vo.title}></option>
+                            <{/if}>
+                        <{/volist}>
+                    <{/if}>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="level" class="col-sm-3 control-label">级别：</label>
+            <div class="col-sm-5">
+                <select class="form-control" name="level" required>
+                    <{if $header.form=="add"}>
+                        <{volist name="level" id="vo"}>
+                        <option value="<{$vo.level}>"><{$vo.title}></option>
+                        <{/volist}>
+                    <{else}>
+                        <{if $result.level==0}>
+                            <option value="0">最高级别</option>
+                        <{else}>
+                            <{volist name="level" id="vo"}>
+                                <{if $result.level == $vo.id}>
+                                <option value="<{$vo.level}>" selected><{$vo.title}></option>
+                                <{else}>
+                                <option value="<{$vo.level}>"><{$vo.title}></option>
+                                <{/if}>
+                            <{/volist}>
+                        <{/if}>
+                    <{/if}>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">邮箱：</label>
+            <div class="col-sm-5">
+                <input id="title" type="text" class="form-control" name="email" <{if $header.form=="add"}>value=""<{else}>value="<{$result.email}>" <{/if}>/>
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="status" class="col-sm-3 control-label">状态：</label>
+            <div class="col-sm-5">
+                <{if $header.form=="add"}>
+                <input type="radio" class="radio-inline" name="status" value="1" checked/>启用
+                <input type="radio" class="radio-inline" name="status" value="2"/>锁定
+                <{else}>
+                    <{if $result.status==1}>
+                    <input type="radio" class="radio-inline" name="status" value="1" checked/>启用
+                    <!--超级管理员不可锁定-->
+                    <{if $result.id > 1}>
+                        <input type="radio" class="radio-inline" name="status" value="2"/>锁定
+                    <{/if}>
+                    <{else}>
+                    <input type="radio" class="radio-inline" name="status" value="1" />启用
+                    <input type="radio" class="radio-inline" name="status" value="2" checked/>锁定
+                    <{/if}>
+
+                <{/if}>
+            </div>
+        </div>
+
+
+        <{if $header.form=="edit"}>
+        
+        
+        <div class="form-group">
+            <label for="headimg" class="col-sm-3 control-label">上传头像：</label>
+            <div class="col-sm-5">
+                <input id="headimg" type="file" multiple accept="image/*" class="form-control fileinput" name="headimg[]" upurl=""/>
+            </div>
+            <script>
+                initFileInput('headimg', $('input#headimg').attr('upurl'));
+            </script>
+        </div>
+
+        <div class="form-group">
+            <label for="addtime" class="col-sm-3 control-label">添加时间：</label>
+            <div class="col-sm-5">
+                <{$result.addtime|date='Y-m-d H:i:s',###}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="adduser" class="col-sm-3 control-label">添加人：</label>
+            <div class="col-sm-5">
+                <{$result.adduser}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="logintime" class="col-sm-3 control-label">登录次数：</label>
+            <div class="col-sm-5">
+                <{$result.logintime}>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="loginip" class="col-sm-3 control-label">登录地址：</label>
+            <div class="col-sm-5">
+                <{$result.loginip}>
+            </div>
+        </div>
+
+        
+        <input type="hidden" name="id" value="<{$result.id}>"/>
+        <{/if}>
+
+
+        <!--引入提交-->
+        <{include file="iframe/submit"}>
+
+    </form>
+
+<{/block}>

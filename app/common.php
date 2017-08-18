@@ -1,0 +1,381 @@
+<?php
+// use think\Controller;
+use think\Session;
+use think\Cookie;
+use think\Config;
+use think\Request;
+use think\Db;
+use think\Cache;
+// use think\File;
+// use think\Upload;
+
+// | fjw:应用公共（函数）文件
+// +----------------------------------------------------------------------
+// | Author: fjw <fjwcoder@gmail.com>
+// +----------------------------------------------------------------------
+// | （fjw: 测试用）
+// | msg: 页面跳转
+// | isMobile：是否是移动端
+// | httpsPost：post请求
+// | httpsGet：get请求
+// | cryptCode：加解密方法
+// | ksetcookie: 设置加密cookie
+// | kgetcookie: 获取解密后的cookie
+// | getField: 弥补tp3.2的getField方法
+// | webConfig：网站配置缓存文件
+// | getUserInfo: 获取用户的基本信息
+// | arrayDeepVal: 获取数组X深度的值
+// | //updateAll 批量更新: tp5修改的不支持批量更新了，烦人！！！
+// | getAdminBranch 获取部门
+// | getAdminLevel 获取级别
+// | uploadImg 图片上传
+// | getAdminNode 获取用户节点
+// |
+// |
+// |
+// |
+// |
+// |
+// |
+// |
+// +----------------------------------------------------------------------
+// |
+// +----------------------------------------------------------------------
+// | 
+// +----------------------------------------------------------------------
+
+function fjw(){
+    echo 'fjw:公共函数';
+}
+
+
+
+
+// +----------------------------------------------------
+// |页面跳转
+// |
+// |
+// +----------------------------------------------------
+function msg($url,$str="", $type='')
+{
+	if($url=="-1"){
+		if($url && !$str){
+			echo "<script>history.go(-1);</script>";
+		}
+		if($url && $str){
+			echo "<script>alert('$str');history.go(-1);</script>";
+		}
+	}else{
+        if($type==='iframe'){
+            if($url && !$str){
+			    echo "<script>window.parent.location='$url';</script>";
+		    }
+            if($url && $str){
+                echo "<script>alert('$str');window.parent.location='$url';</script>";
+            }
+        }else{
+            if($url && !$str){
+			    echo "<script>window.location='$url';</script>";
+		    }
+            if($url && $str){
+                echo "<script>alert('$str');window.location='$url';</script>";
+            }	
+        }
+		
+	}
+	die;
+}
+
+
+// +----------------------------------------------------
+// |判断是否是手机端登录
+// |应用实例：1.【后台Index控制器】Index/index
+// |
+// +----------------------------------------------------
+function isMobile(){  
+    $_SERVER['ALL_HTTP'] = isset($_SERVER['ALL_HTTP']) ? $_SERVER['ALL_HTTP'] : '';  
+        $mobile_browser = '0';  
+    if(preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|iphone|ipad|ipod|android|xoom)/i', strtolower($_SERVER['HTTP_USER_AGENT'])))  
+        $mobile_browser++;  
+    if((isset($_SERVER['HTTP_ACCEPT'])) and (strpos(strtolower($_SERVER['HTTP_ACCEPT']),'application/vnd.wap.xhtml+xml') !== false))  
+        $mobile_browser++;  
+    if(isset($_SERVER['HTTP_X_WAP_PROFILE']))  
+        $mobile_browser++;  
+    if(isset($_SERVER['HTTP_PROFILE']))  
+        $mobile_browser++;  
+    $mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'],0,4));  
+    $mobile_agents = array(  
+        'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',  
+        'blaz','brew','cell','cldc','cmd-','dang','doco','eric','hipt','inno',  
+        'ipaq','java','jigs','kddi','keji','leno','lg-c','lg-d','lg-g','lge-',  
+        'maui','maxo','midp','mits','mmef','mobi','mot-','moto','mwbp','nec-',  
+        'newt','noki','oper','palm','pana','pant','phil','play','port','prox',  
+        'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',  
+        'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',  
+        'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',  
+        'wapr','webc','winw','winw','xda','xda-' 
+    );  
+    if(in_array($mobile_ua, $mobile_agents))
+        $mobile_browser++;  
+    if(strpos(strtolower($_SERVER['ALL_HTTP']), 'operamini') !== false)  
+        $mobile_browser++;  
+    // Pre-final check to reset everything if the user is on Windows  
+    if(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'windows') !== false)  
+        $mobile_browser=0;  
+    // But WP7 is also Windows, with a slightly different characteristic  
+    if(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'windows phone') !== false)  
+        $mobile_browser++; 
+    if($mobile_browser>0)  
+        return true;  
+    else 
+        return false; 
+}
+
+#https POST 请求处理函数 
+function httpsPost($url, $data = null){
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    if(!empty($data)){
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    }
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($curl);
+    curl_close($curl);
+    return $output;
+}
+
+
+#https   GET请求处理函数
+function httpsGet($url){
+    $oCurl = curl_init();
+    if(stripos($url, 'https://')!==FALSE){
+        curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($oCurl, CURLOPT_SSLVERSION, 1);
+    }
+    curl_setopt($oCurl, CURLOPT_URL, $url);
+    curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
+    $sContent = curl_exec($oCurl);
+    $aStatus = curl_getinfo($oCurl);
+    curl_close($oCurl);
+    if(intval($aStatus['http_code'])==200){
+        return $sContent;
+    }else{
+        return false;
+    }
+}
+
+
+// +----------------------------------------------------
+// |加密解密的方法
+// |$string: 加解密字段
+// |$operation: 加解密操作
+// |$crypt: 加解密秘钥
+// |$expriy: 
+// +----------------------------------------------------
+function cryptCode($string, $operation = 'DECODE', $crypt ='', $expiry = 0)
+{
+	$ckey_length = 4;
+    $crypt = ''?session(config('USER_KEY')):$crypt;
+    $key = md5(md5($crypt).$_SERVER['HTTP_USER_AGENT']);
+	$keya = md5(substr($key, 0, 16));
+	$keyb = md5(substr($key, 16, 16));
+	$keyc = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length): substr(md5(microtime()), -$ckey_length)) : '';
+	$cryptkey = $keya.md5($keya.$keyc);
+	$key_length = strlen($cryptkey);
+	$string = $operation == 'DECODE' ? base64_decode(substr($string, $ckey_length)) : sprintf('%010d', $expiry ? $expiry + time() : 0).substr(md5($string.$keyb), 0, 16).$string;
+	$string_length = strlen($string);
+	$result = '';
+	$box = range(0, 255);
+	$rndkey = array();
+	for($i = 0; $i <= 255; $i++) {
+		$rndkey[$i] = ord($cryptkey[$i % $key_length]);
+	}
+	for($j = $i = 0; $i < 256; $i++) {
+		$j = ($j + $box[$i] + $rndkey[$i]) % 256;
+		$tmp = $box[$i];
+		$box[$i] = $box[$j];
+		$box[$j] = $tmp;
+	}
+	for($a = $j = $i = 0; $i < $string_length; $i++) {
+		$a = ($a + 1) % 256;
+		$j = ($j + $box[$a]) % 256;
+		$tmp = $box[$a];
+		$box[$a] = $box[$j];
+		$box[$j] = $tmp;
+		$result .= chr(ord($string[$i]) ^ ($box[($box[$a] + $box[$j]) % 256]));
+	}
+	if($operation == 'DECODE') {
+		if((substr($result, 0, 10) == 0 || substr($result, 0, 10) - time() > 0) && substr($result, 10, 16) == substr(md5(substr($result, 26).$keyb), 0, 16)) {
+			return substr($result, 26);
+		} else {
+			return '';
+		}
+	} else {
+		return $keyc.str_replace('=', '', base64_encode($result));
+	}
+}
+
+function ksetcookie($array, $key = 'user'){
+    foreach($array as $k=>$v){
+        $array[$k] = cryptCode($v, 'ENCODE');
+    }
+    cookie($key, $array);
+    return true;
+}
+
+function kgetcookie($key = 'user'){
+    $cookie = cookie($key);
+    foreach($cookie as $k=>$v){
+        $cookie[$k] = cryptCode($v, 'DECODE');
+    }
+    return $cookie;
+}
+
+
+#网站配置文件缓存
+function webConfig($type = 0){
+    if(cache('WEB_CONFIG')){
+        $config = cache('WEB_CONFIG');
+    }else{
+        $config = db('web_config', [], false) -> where(array('status'=>1)) -> select();
+        $config = getField($config);
+        // cache('WEB_CONFIG', $config); 缓存注释
+    }
+    return $config;
+}
+
+
+#网站左侧导航栏
+function adminNav(){
+    if(cache('ADMIN_NAV')){
+        $nav = cache('ADMIN_NAV');
+    }else{
+        $nav = db('admin_menu', [], false) -> where(array('status'=>1)) ->select();
+        // cache('ADMIN_NAV', $nav); 缓存注释
+    }
+    $nav = getField($nav, 'id'); 
+    return $nav;
+}
+
+
+#数组处理函数，弥补3.2的getField();
+function getField($array, $field='name'){
+    foreach($array as $k=>$v){
+        $result[$v[$field]] = $v;
+        unset($array[$k]);
+    }
+    return $result;
+}
+
+#获取数组x深度的值
+function arrayDeepVal($array=array(), $key=0){
+    if(!array_key_exists($key, $array)){
+        $array[$key] = array();
+    }
+    return $array[$key];
+}
+
+
+#获取用户基本信息
+function getUserInfo($table='web_user', $key){
+    if(session('user')){
+        return session('user');
+    }else{
+        $user = db($table, [], false) -> where(array('id'=>$key)) -> find();
+        // session('user', $user); 缓存注释
+        return $user;
+    }
+}
+
+// #updateAll 批量更新: tp5修改的不支持批量更新了，烦人！！！
+// function updateAll($array=array(), $table='', $field='id'){
+//     Db::startTrans();
+
+//     try{
+//         foreach($array as $k=>$v){
+//             $update = Db::table($table) -> where(array($field=>$v[$field])) -> save($v);
+//             if($update <= 0){
+//                 echo '这次失败了';
+//                 Db::rollback();
+//                 return false;
+//                 exit;
+//             }
+//             echo '次数<br>';
+//         }
+//         return dump('全都成功'); exit;
+//         Db::commit();
+        
+//         return true;
+//     }catch(\Exception $e){
+//         Db::rollback();
+//         return false;
+//     }
+
+// }
+
+#获取部门信息
+function getAdminBranch(){
+    $result = db('admin_branch') -> where(array('status'=>1)) -> select();
+    return $result;
+}
+
+//获取等级信息
+function getAdminLevel(){
+    $result = db('admin_level') -> where(array('status'=>1)) -> select();
+    return $result;
+}
+
+// +----------------------------------------------------
+// | 图片上传方法，只支持上传到本地服务器
+// +----------------------------------------------------
+function uploadImg($dir=''){
+    $static = DS.'upload'.DS.$dir.DS;
+    $upurl = ROOT_PATH.'public'.DS.'static'.$static;
+    
+    if (! file_exists ( $upurl )) {
+        mkdir ( "$upurl", 0777, true );
+    }
+    $keys = array_keys($_FILES);
+    foreach($keys as $key){
+        $files = request()->file($key);
+        if(!empty($files)){
+            foreach($files as $key=>$file){
+                $info = $file -> move($upurl);
+                if($info){
+                    return ['status'=>true, 'path'=>'__STATIC__'.$static.$info->getSaveName()];
+                }else{
+                    // 上传失败获取错误信息
+                    return ['status'=>false, 'error'=>$file->getError()];
+                }
+            }
+        }
+    }
+    return ['status'=>false]; 
+}
+
+
+function getAdminNode($userid){
+    $result = [];
+    $user = getUserInfo('admin_member', $userid);
+    if($user['authority'] == 1){ //针对该用户制定了权限
+        $sql = "select b.* from keep_admin_node a left join keep_admin_menu b on a.menu_id=b.id 
+                where b.status=1 and a.user_id=$userid order by b.sort;";
+        $result = Db::query($sql);
+    }else{
+        if($user['branch'] == 0){ //没有部门，则只查出等级
+            $result = db('admin_menu', [], false) -> where('status=1 and level>='.$user['level']) -> order('sort')-> select();
+        }else{ //存在部门
+            if($user['level'] == 0){ //没有设置等级
+
+            }else{
+                
+            }
+        }
+    }
+
+    return $result;
+}

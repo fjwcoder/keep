@@ -1,0 +1,34 @@
+<{extend name="./index/iframe"}>
+<{block name="content"}>
+<form class="form-horizontal" method="post" role="form" action="<{$header.form}>">
+    <{if $header.navid==8}>
+    <div class="form-group">
+        <label for="headimg" class="col-sm-3 control-label"></label>
+        <div class=" member-headimg col-sm-3 col-md-3">
+            <a href="<{:url('admin/member/edit', ['navid'=>$header.navid, 'id'=>$user.id])}>" class="thumbnail" title="用户信息">
+                <{if $user.headimg}>
+                <img class=" member-headimg form-control" src="<{$user.headimg}>" alt="用户头像未显示"/>
+                <{else}>
+                <img class=" member-headimg form-control" src="__STATIC__/images/admin/default_headimg.png" alt="用户头像未显示"/>
+                <{/if}>
+                
+            </a>
+        </div>
+    </div>
+
+    <{/if}>
+    <div class="panel panel-default node-panel-default">
+        <{$node}>
+    </div>
+    <br>
+    <!--引入提交-->
+    <input type="hidden" name="id" value="<{$header.id}>"/>
+    <{include file="iframe/submit"}>
+</form>
+
+<script>
+    <{volist name="checked" id="vo"}>
+        $('#menu-'+<{$vo.id}>).attr('checked', true);
+    <{/volist}>
+</script>   
+<{/block}>

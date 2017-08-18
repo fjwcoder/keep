@@ -1,0 +1,44 @@
+<div class="content-header wp_100 h40">
+<form class="form-horizontal" method="post" role="form" action="<{:url('index', ['navid'=>$header.navid])}>">
+    <div class=" row wp_100 iframe-header">
+        <div class="form-group form-group-iframe-header">
+            <div class="col-xs-12 col-sm-6 ">
+                <{if $header.form != "list" }>
+                <a href="javascript: history.go(-1);">
+                    <div class="iframe-header-back pull-left text-center" title="返回">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                    </div>
+                </a>
+                <{else}>
+                    <a href="<{:url('add', ['navid'=>$header.navid])}>">
+                        <div class="iframe-header-back pull-left text-center" title="添加">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </a>
+                <{/if}>
+                <div class="iframe-header-info pull-left text-left" title="页面信息">
+                    <div class="iframe-header-icon text-center pull-left">
+                        <span class=" glyphicon <{$header.icon}>"></span>
+                    </div>
+                    &nbsp;<{$header.title}>
+                </div>
+                
+            </div>
+
+            <{if $header.form == "list" }>
+            <div class="col-xs-12 col-sm-6">
+                <button class="col-sm-1 pull-right header-search-btn text-center">
+                    <span type="submit" class="glyphicon glyphicon-search" title="搜索"></span>
+                </button>
+
+                <input id="search" class="input-key pull-right" name="keyword" value="<{$keyword}>" placeholder="关键字搜索..."/>
+
+            </div>
+            <{/if}>
+        </div>
+    </div>
+</form>
+</div>
+    
+
+    

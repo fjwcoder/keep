@@ -1,0 +1,32 @@
+<{extend name="./index/iframe"}>
+<{block name="content"}>
+
+    <form class="form-horizontal" method="post" role="form" action="<{$header.form}>">
+        <div class="form-group">
+            <label for="old-password" class="col-sm-3 control-label">旧密码：</label>
+            <div class="col-sm-5">  
+                <input id="old-password" type="text" class="form-control" name="old-password" value="" required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password0" class="col-sm-3 control-label">新密码：</label>
+            <div class="col-sm-5">  
+                <input id="password0" type="text" class="form-control" name="password0" value="" required/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password1" class="col-sm-3 control-label">重复新密码：</label>
+            <div class="col-sm-5">  
+                <input id="password1" type="text" class="form-control" name="password1" value="" required/>
+            </div>
+        </div>
+
+        <!--引入提交-->
+        <{include file="iframe/submit"}>
+    </form>
+
+
+
+<{/block}>
