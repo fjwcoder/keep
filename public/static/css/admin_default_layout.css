@@ -1,0 +1,122 @@
+@import "keep_base.css";/*公共css*/
+/*==================================登录页面CSS=========================================*/
+li{list-style-type: none;}
+.abs{position: absolute;}
+.login-panel{position: absolute; top: 50%; left: 50%; height: 350px; width: 500px; 
+    margin: -200px 0 0 -250px; background: white; }
+div.cms-title{height: 65px; line-height: 65px; font-size: 30px;
+    -moz-box-shadow: 0px 3px 10px #e0e0e0;
+    -webkit-box-shadow: 0px 3px 10px #e0e0e0; 
+    box-shadow: 0px 3px 10px #e0e0e0;
+}
+div.cms-login{height: 285px; padding-top: 15px;}
+div.cms-login-div{height: 22%; width: 100%; padding: 3% 20% 3% 20%; font-size: 20px;}
+div.cms-login-img{height: 25%; width: 100%; padding: 2% 20% 2% 20%; font-size: 20px;}
+div.cms-login-div input{border: 0; border-bottom: 1px solid #e0e0e0;}
+div.cms-login-div button{width: 150px; border: 0; height: 32px;
+    background: #f75809; color: white; border-radius: 20px;
+}
+div.cms-login-img input{width: 120px; height: 40px; border: 0; border-bottom: 1px solid #e0e0e0;}
+div.cms-login-img img{width: 120px; height: 40px; }
+
+
+/*==================================主页面头部CSS=========================================*/
+div.cms-header{height: 50px;
+    -moz-box-shadow: 0px 3px 10px #e0e0e0;
+    -webkit-box-shadow: 0px 3px 10px #e0e0e0; 
+    box-shadow: 0px 3px 10px #e0e0e0;
+}
+nav.navbar div.container-fluid .navbar-toggle{
+    margin: 0; border: 0; border-radius: 0; float: none; position: none;
+}
+nav.navbar-nav{background-color: white;}
+.navbar-default{background-color: white; border: 0;}
+nav.navbar .navbar-collapse ul li{min-width: 120px; }
+nav.navbar .navbar-collapse li.nav-node-bottom{border-bottom: 1px solid #e5e5e5; margin: 5px 0; }
+nav.navbar .navbar-collapse li.nav-node-all{ border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; margin: 5px 0;}
+nav.navbar .navbar-collapse .glyphicon{color: #f75809;}
+nav.navbar .navbar-collapse .dropdown-menu{padding: 0; border: 0;
+    -moz-box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    -webkit-box-shadow: 0 20px 60px rgba(0,0,0,.4); 
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+nav.navbar .navbar-header button.navbar-toggle{margin-top: 10px; margin-right: 10px;}
+nav.navbar .navbar-header span.glyphicon-off{margin-top: 17px; margin-right: 17px;}
+/*==================================主页iframe  CSS=========================================*/
+div.cms-panel{top: 60px; left: 0; bottom: 0;}
+div.iframe-content-title{border-bottom: 1px solid #e0e0e0; margin-bottom: 5%; height: 50px; line-height: 50px;}
+label.control-label{font-weight: 400;}
+button.admin-submit-btn{ margin-top: 20px; border: 0; border-radius: 20px;
+    height: 28px; background: #f75809; color: #f5f5f5; width: 130px; line-height: 20px;}
+button.admin-submit-btn:hover{background: #ff4500; 
+    -moz-box-shadow: 0px 3px 10px #949894;
+    -webkit-box-shadow: 0px 3px 10px #949894; 
+    box-shadow: 0px 3px 10px #949894;}
+.content-header{ margin-bottom: 20px;}
+.iframe-header{ height: 50px;}
+.iframe-header .form-group{border-bottom: 1px solid #e0e0e0; margin-top: 15px; margin-bottom: 0;}
+input.input-key{border: 0;}
+.admin-member-headimg{height: 35px; width: 35px; margin-top: 2px; border-radius: 50%;}
+.header-search-btn{ height: 35px; width: 35px; cursor: pointer;
+    background-color: transparent; border-radius: 50%; padding: 0; line-height: 35px; 
+    -moz-box-shadow: 0px 3px 10px #949894; 
+    -webkit-box-shadow: 0px 3px 10px #949894; 
+    box-shadow: 0px 3px 10px #949894;
+}
+.header-search-btn{margin-right: 20px;}
+div.iframe-header-icon{height: 35px; width: 35px; border-right: 1px solid #e0e0e0; border-radius: 50%;}
+div.iframe-header-icon span{color: #f75809;}
+div.iframe-header-back{height: 35px; width: 35px; border-radius: 50%;
+    margin-left: 20px; cursor: pointer; 
+    -moz-box-shadow: 0px 3px 10px #949894;
+    -webkit-box-shadow: 0px 3px 10px #949894; 
+    box-shadow: 0px 3px 10px #949894;
+}
+div.iframe-header-back:hover, button.header-search-btn:hover, div.member-headimg a img:hover{
+    -moz-box-shadow: 0px 0px 0px #949894;
+    -webkit-box-shadow: 0px 0px 0px #949894; 
+    box-shadow: 0px 0px 0px #949894;
+}
+
+div.iframe-header-info{height: 35px; border-radius: 20px; margin-left: 5px; padding-right: 10px;
+    -moz-box-shadow: 0px 3px 10px #949894;
+    -webkit-box-shadow: 0px 3px 10px #949894; 
+    box-shadow: 0px 3px 10px #949894;
+}
+
+
+div.col-sm-6, div.col-sm-5{line-height: 35px;}
+div.form-group-submit{border-top: 1px solid #e0e0e0;}
+.member-headimg, .member-headimg a{border-radius: 50%; border: 0;}
+.member-headimg, .member-headimg a img{height: 160px; width: 210px;}
+div.member-headimg a img, div.node-panel-default{
+    -moz-box-shadow: 0px 3px 10px #949894;
+    -webkit-box-shadow: 0px 3px 10px #949894; 
+    box-shadow: 0px 3px 10px #949894;}
+div.node-panel-body label.checkbox-inline{margin-left: 2%;}
+p.help-block{font-size: 12px; font-style: italic; margin-bottom: 0;}
+
+
+
+/*上传按钮*/
+div.input-group-btn .btn-default{padding: 5px 12px;}
+div.btn-file:hover{background-color: #ccc; border-color: #ccc;}
+div.file-upload-indicator{margin-bottom: -12px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

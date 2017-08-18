@@ -1,0 +1,169 @@
+*{font-size: 16px; color: #272727; 
+font-family: Arial, "SF Pro SC", "HanHei SC", "SF Pro Text", "Myriad Set Pro", "PingFang SC", "Helvetica Neue", Helvetica, 'Segoe UI','Microsoft Yahei',sans-serif; padding: 0px; margin: 0px}
+html,body{height: 100%; width: 100%; margin: 0; padding: 0; border: 0;}
+/*ul li{list-style:none;}*/
+.f_l{float: left}
+.f_r{float: right}
+.t_c{text-align: center}
+.t_l{text-align: left}
+.t_r{text-align: right}
+.d_b{display: block}
+.d_n{display: none}
+.o_h{overflow: hidden}
+
+
+/*宽度 像素位*/
+.w10{width: 10px;}
+.w20{width: 20px;}
+.w30{width: 30px;}
+.w40{width: 40px;}
+.w50{width: 50px;}
+.w55{width: 55px;}
+.w60{width: 60px;}
+.w70{width: 70px;}
+.w80{width: 80px;}
+.w90{width: 90px;}
+.w100{width: 100px;}
+.w120{width: 120px;}
+.w125{width: 125px;}
+.w130{width: 130px;}
+.w150{width: 150px;}
+.w180{width: 180px;}
+.w200{width: 200px;}
+.w250{width: 250px;}
+.w280{width: 280px;}
+.w300{width: 300px;}
+.w350{width: 350px;}
+.w400{width: 400px;}
+.w500{width: 500px;}
+.w600{width: 600px;}
+.w700{width: 700px;}
+.w800{width: 800px;}
+.w900{width: 900px;}
+.w1000{width: 1000px;}
+.w1100{width: 1100px;}
+.w1200{width: 1200px;}
+
+/*宽度 百分比*/
+.wp_5{width: 5%}
+.wp_10{width: 10%;}
+.wp_15{width: 15%;}
+.wp_20{width: 20%;}
+.wp_25{width: 25%;}
+.wp_30{width: 30%;}
+.wp_35{width: 35%;}
+.wp_40{width: 40%;}
+.wp_45{width: 45%;}
+.wp_50{width: 50%;}
+.wp_55{width: 55%;}
+.wp_60{width: 60%;}
+.wp_65{width: 65%;}
+.wp_70{width: 70%;}
+.wp_75{width: 75%;}
+.wp_80{width: 80%;}
+.wp_85{width: 85%;}
+.wp_90{width: 90%;}
+.wp_95{width: 95%;}
+.wp_100{width:100%;}
+.wp_33{width: 33%;}
+.wp_33_3{width: 33.33333%;}
+
+
+
+.h5{height: 5px;}
+.h10{height: 10px;}
+.h15{height: 15px;}
+.h20{height: 20px;}
+.h25{height: 25px;}
+.h30{height: 30px;}
+.h35{height: 35px;}
+.h40{height: 40px;}
+.h45{height: 45px;}
+.h50{height: 50px;}
+.h60{height: 60px;}
+.h70{height: 70px;}
+.h80{height: 80px;}
+.h100{height: 100px;}
+.h150{height: 150px;}
+.h200{height: 200px;}
+.h250{height: 250px;}
+.h300{height: 300px;}
+.h350{height: 350px;}
+.h400{height: 400px;}
+.h450{height: 450px;}
+.h500{height: 500px;}
+.h550{height: 550px;}
+.h600{height: 600px;}
+.h650{height: 650px;}
+.h700{height: 700px;}
+.h750{height: 750px;}
+.h800{height: 800px;}
+.h850{height: 850px;}
+.h900{height: 900px;}
+.h950{height: 950px;}
+.h1000{height: 1000px;}
+
+
+.hp_5{height: 5%;}
+.hp_8{height: 8%;}
+.hp_10{height: 10%;}
+.hp_15{height: 15%;}
+.hp_20{height: 20%;}
+.hp_25{height: 25%;}
+.hp_30{height: 30%;}
+.hp_33{height: 33%;}
+.hp_35{height: 35%;}
+.hp_40{height: 40%;}
+.hp_45{height: 45%;}
+.hp_50{height: 50%;}
+.hp_55{height: 55%;}
+.hp_60{height: 60%;}
+.hp_65{height: 65%;}
+.hp_70{height: 70%;}
+.hp_75{height: 75%;}
+.hp_80{height: 80%;}
+.hp_84{height: 84%;}
+.hp_85{height: 85%;}
+.hp_90{height: 90%;}
+.hp_92{height: 92%;}
+.hp_95{height: 95%;}
+.hp_100{height: 100%;}
+
+div{margin: 0; padding: 0; border: 0;}
+.panel{margin: 0px; height: 100%;}
+.panel-body{height: 100%;}
+
+.font-272727{color: #272727}
+
+
+
+
+a, a:visited, a:hover, a:link{text-decoration: none;}
+
+.border-left-radius-5{border-top-left-radius: 5px; border-bottom-left-radius: 5px;
+    border-top-right-radius: 0; border-bottom-right-radius: 0;}
+.border-middle-radius{border-radius: 0;}
+.border-right-radius-5{border-top-right-radius: 5px; border-bottom-right-radius: 5px;
+    border-top-left-radius: 0; border-bottom-left-radius: 0;}
+.border-top-radius-5{border-top-left-radius: 5px; border-bottom-left-radius: 0px;
+    border-top-right-radius: 5px; border-bottom-right-radius: 0;}
+.border-bottom-radius-5{border-bottom-left-radius: 5px; border-top-left-radius: 0px;
+    border-top-right-radius: 0; border-bottom-right-radius: 5px;}
+
+
+.abs_all{position: absolute; top: 0; bottom: 0;}
+
+
+/*.fz_10{font-size: 10px;}
+.fz_11{font-size: 11px;}
+.fz_12{font-size: 12px;}
+.fz_13{font-size: 13px;}
+.fz_14{font-size: 14px;}
+.fz_15{font-size: 15px;}
+.fz_16{font-size: 16px;}
+.fz_17{font-size: 17px;}
+.fz_18{font-size: 18px;}
+.fz_19{font-size: 19px;}
+.fz_20{font-size: 20px;}
+
+.bg_op_b10{background: url(../images/opacity/b_10.png);}*/
