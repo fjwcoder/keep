@@ -13,7 +13,6 @@ use think\Session;
 
 class Manage extends Authority
 {
-    // public static $config = array(); //网站配置
 
     //权限验证
     public function _initialize(){ //构造函数内无法返回值，无法die/exit；
