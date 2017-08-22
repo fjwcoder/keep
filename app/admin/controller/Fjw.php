@@ -7,6 +7,25 @@ use think\Db;
 // use think\Request;
 class Fjw extends Controller
 {   
+    //解密
+    public function decode(){
+        $user = db('admin_member') -> where(array('id'=>1)) -> find();
+        // $pass = 'admin';
+        // $crypt = substr(md5($pass), 0, 4);
+        // $passcode = cryptCode($pass, 'ENCODE', $crypt);
+        // echo $passcode.'<br>';
+        // echo $crypt.'<br>';
+        // die;
+        $passcode = $user['password'];
+        $crypt = $user['encrypt'];
+
+        $password = cryptCode($passcode, 'DECODE', $crypt);
+        echo $password.'<br>';
+        die;
+
+        // return $passcode?$passcode:'空';
+        
+    }
 
     // 递归
     public function cate(){

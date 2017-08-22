@@ -168,21 +168,107 @@ function httpsGet($url){
     }
 }
 
+function cryptCode($data='', $operation='ENCODE', $key=''){
+    $key = md5($key);
+    $x = 0;
+    $char = '';
+    $str = '';
+    if($operation === 'ENCODE'){
+        $len = strlen($data);
+        $l = strlen($key);
+        for ($i = 0; $i < $len; $i++)  {  
+            if ($x == $l)   {  
+                $x = 0;  
+            }  
+            $char .= $key{$x};  
+            $x++;  
+        }  
+        for ($i = 0; $i < $len; $i++)  {  
+            $str .= chr(ord($data{$i}) + (ord($char{$i})) % 256);  
+        }  
+        $result = base64_encode($str);
+    }else{
+        $data = base64_decode($data);  
+        $len = strlen($data);  
+        $l = strlen($key);  
+        for ($i = 0; $i < $len; $i++) {  
+            if ($x == $l)   {  
+                $x = 0;  
+            }  
+            $char .= substr($key, $x, 1);  
+            $x++;  
+        }  
+        for ($i = 0; $i < $len; $i++) {  
+            if (ord(substr($data, $i, 1)) < ord(substr($char, $i, 1)))  {  
+                $str .= chr((ord(substr($data, $i, 1)) + 256) - ord(substr($char, $i, 1)));  
+            }  
+            else  {  
+                $str .= chr(ord(substr($data, $i, 1)) - ord(substr($char, $i, 1)));  
+            }  
+        }  
+        $result = $str;
+    }
+
+    return $result;
+}
+
+
+function authCode1($string,$operation,$key=''){ 
+    $key= $key?$key:substr(md5($string), 0, 4); 
+    $key_length=strlen($key); 
+    $string=$operation=='DECODE'?base64_decode($string):substr(md5($string.$key),0,8).$string; 
+    $string_length=strlen($string); 
+    $rndkey=$box=array(); 
+    $result=''; 
+    for($i=0;$i<=255;$i++){ 
+           $rndkey[$i]=ord($key[$i%$key_length]); 
+        $box[$i]=$i; 
+    } 
+    for($j=$i=0;$i<256;$i++){ 
+        $j=($j+$box[$i]+$rndkey[$i])%256; 
+        $tmp=$box[$i]; 
+        $box[$i]=$box[$j]; 
+        $box[$j]=$tmp; 
+    } 
+    for($a=$j=$i=0;$i<$string_length;$i++){ 
+        $a=($a+1)%256; 
+        $j=($j+$box[$a])%256; 
+        $tmp=$box[$a]; 
+        $box[$a]=$box[$j]; 
+        $box[$j]=$tmp; 
+        $result.=chr(ord($string[$i])^($box[($box[$a]+$box[$j])%256])); 
+    } 
+    if($operation=='DECODE'){ 
+        if(substr($result,0,8)==substr(md5(substr($result,8).$key),0,8)){ 
+            return substr($result,8); 
+        }else{ 
+            return''; 
+        } 
+    }else{ 
+        return str_replace('=','',base64_encode($result)); 
+    } 
+}
 
 // +----------------------------------------------------
-// |加密解密的方法
+// |加密解密的方法，存在有效时间
 // |$string: 加解密字段
 // |$operation: 加解密操作
 // |$crypt: 加解密秘钥
-// |$expriy: 
+// |$expriy: 密文有效期
 // +----------------------------------------------------
-function cryptCode($string, $operation = 'DECODE', $crypt ='', $expiry = 0)
+function authCode0($string, $operation = 'DECODE', $crypt ='', $expiry = 0)
 {
 	$ckey_length = 4;
-    $crypt = ''?session(config('USER_KEY')):$crypt;
+    if(empty($crypt)){
+        $crypt = substr(md5($string), 0, 4);
+    }
     $key = md5(md5($crypt).$_SERVER['HTTP_USER_AGENT']);
+
+    // $keya 会参与加解密
 	$keya = md5(substr($key, 0, 16));
+    // $keyb 用来做数据完整性验证
 	$keyb = md5(substr($key, 16, 16));
+    // $keyc用于变化生成的密文   
 	$keyc = $ckey_length ? ($operation == 'DECODE' ? substr($string, 0, $ckey_length): substr(md5(microtime()), -$ckey_length)) : '';
 	$cryptkey = $keya.md5($keya.$keyc);
 	$key_length = strlen($cryptkey);

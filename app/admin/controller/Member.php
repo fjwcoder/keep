@@ -201,8 +201,10 @@ class Member extends Manage
         }
         
         $user = getUserInfo('admin_member', $id);
-        $old_pwd = cryptCode($user['password'], 'DECODE', $user['encrypt']);
-        if($post['old-password'] !== $old_pwd){
+        // $old_pwd = cryptCode($user['password'], 'DECODE', $user['encrypt']);
+        $old_pwd = cryptCode($post['old-password'], 'ENCODE', substr(md5($post['old-password']), 0, 4));
+        // if($post['old-password'] !== $old_pwd){
+        if($old_pwd !== $user['password']){
             return $this->error('旧密码错误');
         }
 

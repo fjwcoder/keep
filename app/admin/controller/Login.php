@@ -39,6 +39,7 @@ class Login extends Controller
         if(!captcha_check($login['verify'])){
             return $this->error('验证码错误！'); exit;
         }
+
         $check = $this->checkUser($login);
         if(!$check['status']){
             return $this->error($check['content']); exit;
@@ -65,8 +66,11 @@ class Login extends Controller
             if($user['status'] != 1){
                 return ['status'=>false, 'content'=>'用户已锁定']; exit;
             }
-            $decryptPwd = cryptCode($user['password'], 'DECODE', $user['encrypt']);
-            if($decryptPwd === $login['password']){
+
+            $password = cryptCode($login['password'], 'ENCODE', substr(md5($login['password']), 0, 4));
+            // $decryptPwd = cryptCode($user['password'], 'DECODE', $user['encrypt']);
+            // if($decryptPwd === $login['password']){
+            if($password === $user['password']){
                 return ['status'=>true, 'content'=>'正确', 'user'=>$user]; exit;
             }else{
                 return ['status'=>false, 'content'=>'密码错误']; exit;

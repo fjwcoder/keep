@@ -22,13 +22,13 @@ class System extends Manage
     // dump(request()->module());//模块
     // dump(request()->controller()); //控制器
     // dump(request()->action()); //方法
-    private $module = '';
-    private $controller = '';
+    // private $module = '';
+    // private $controller = '';
 
-    public function _initialize(){
-        $this->module = request()->module();
-        $this->controller = request()->controller();
-    }
+    // public function _initialize(){
+    //     $this->module = request()->module();
+    //     $this->controller = request()->controller();
+    // }
 
     public function index()
     {   
@@ -37,9 +37,7 @@ class System extends Manage
 
         $this->assign('config', $config);
         $this->assign('header', ['icon'=>'glyphicon-cog','title'=>'系统配置->系统配置->基本配置', 
-        'form'=>'index',
-        // 'form'=>"/$this->module/$this->controller/edit", 
-        'navid'=>$navid]);
+        'form'=>'index', 'navid'=>$navid]);
         return $this->fetch();
     }
     
@@ -69,7 +67,7 @@ class System extends Manage
             session('ADMIN_NAVBAR', null);
             // Cache::rm('ADMIN_NAVBAR');
             // Cache::rm('ADMIN_MODULE');
-            return $this->success('更新成功', "$this->controller/index");
+            return $this->success('更新成功', request()->controller()."/index");
         }else{
             return $this->error('无更新项');
         }
@@ -83,18 +81,49 @@ class System extends Manage
         }
         $navid = input('navid', 0, 'intval');
         $this->assign('header', ['icon'=>'glyphicon-cog','title'=>'系统配置->系统配置->添加配置', 
-        'form'=>'add', 'navid'=>$navid]);
+        'form'=>'add', 'navid'=>$navid
+        // 'verify'=>DS.request()->module().DS.request()->controller().DS.'verify'
+        ]);
         return $this->fetch();
     }
 
     public function addPost(){
         $post = request()->post();
+        $name_in = " ";
+        $title_in = " ";
         foreach($post['config'] as $k=>$v){
             $data[$k] = $v;
+            $sql .= ", `".$v['name']."`";
         }
+        $sql = "select * from keep_admin_config where name in (`0` ";
+        $sql .= ");";
+        print_r($sql);
         #需要检测name和title字段的唯一性
         return dump($data);
     }
+
+    public function verify(){
+        header('Content-type: application/json, charset=utf-8');
+        $post = request()->post();
+        switch($post['type']){
+            case 'name':
+                $where['name'] = $post['value'];
+            break;
+            case 'title':
+                $where['title'] = $post['value'];
+            break;
+            default:
+                $where['1'] = '1'; //保持正确查询
+            break;
+        }
+        $result = db('web_config')->where($where) -> find();
+        if($result){
+            echo json_encode(array('status'=>false, 'content'=>'*已存在'), JSON_UNESCAPED_UNICODE);
+        }else{
+            echo json_encode(array('status'=>true, 'content'=>'*可提交'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+
 
 
 }

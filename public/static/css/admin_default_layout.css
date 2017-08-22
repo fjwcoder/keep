@@ -18,7 +18,7 @@ div.cms-login-div button{width: 150px; border: 0; height: 32px;
 }
 div.cms-login-img input{width: 120px; height: 40px; border: 0; border-bottom: 1px solid #e0e0e0;}
 div.cms-login-img img{width: 120px; height: 40px; }
-
+div.cms-login div.cms-login-div span.glyphicon{color: #949894;}
 
 /*==================================主页面头部CSS=========================================*/
 div.cms-header{height: 50px;
@@ -42,6 +42,7 @@ nav.navbar .navbar-collapse .dropdown-menu{padding: 0; border: 0;
 }
 nav.navbar .navbar-header button.navbar-toggle{margin-top: 10px; margin-right: 10px;}
 nav.navbar .navbar-header span.glyphicon-off{margin-top: 17px; margin-right: 17px;}
+.dropdown-menu li a{padding: 2px 20px;}
 /*==================================主页iframe  CSS=========================================*/
 div.cms-panel{top: 60px; left: 0; bottom: 0;}
 div.iframe-content-title{border-bottom: 1px solid #e0e0e0; margin-bottom: 5%; height: 50px; line-height: 50px;}

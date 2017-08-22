@@ -7,14 +7,14 @@
             <div class="form-group">
                 <label   class="col-sm-2 control-label">标识：</label>
                 <div class=" col-sm-3">  
-                    <input   type="text" class="form-control" name="config[0][name]" value="" placeholder="english_name" required/>
-                    <p class="help-block">英文名称，不可与已存在的配置标识重复</p>
+                    <input id="name-0" type="text" class="form-control" name="config[0][name]" value="" onblur="loseBlur(0, 0);" placeholder="english_name" required/>
+                    <p class="help-block name-0">英文名称，不可与已存在的配置标识重复</p>
                 </div>
 
                 <label   class="col-sm-2 control-label">名称：</label>
                 <div class=" col-sm-3">  
-                    <input   type="text" class="form-control" name="config[0][title]" value="" placeholder="中文名称" required/>
-                    <p class="help-block">中文名称，不可与已存在的配置名称重复</p>
+                    <input id="title-0" type="text" class="form-control" name="config[0][title]" value="" onBlur="loseBlur(1, 0);" placeholder="中文名称" required/>
+                    <p class="help-block title-0">中文名称，不可与已存在的配置名称重复</p>
                 </div>
             </div>
 
@@ -43,6 +43,7 @@
     <{include file="iframe/submit"}>
 </form>
 <script>
+    var check = false;
     function addConfig(){
         var max = $('div.node-panel-body:last').attr('sort');
         max = parseInt(max)+1;
@@ -51,13 +52,13 @@
         html += '<div class="form-group">';
         html += '<label   class="col-sm-2 control-label">标识：</label>';
         html += '<div class=" col-sm-3">  ';
-        html += '<input type="text" class="form-control" name="config['+max+'][name]" value="" placeholder="english_name" required/>';
-        html += '<p class="help-block">英文名称，不可与已存在的配置标识重复</p>';
+        html += '<input id="name-'+max+'" type="text" class="form-control " name="config['+max+'][name]" value="" onBlur="loseBlur(0, '+max+');" placeholder="english_name" required/>';
+        html += '<p class="help-block name-'+max+'">英文名称，不可与已存在的配置标识重复</p>';
         html += '</div>';
-        html += '<label   class="col-sm-2 control-label">名称：</label>';
+        html += '<label class="col-sm-2 control-label">名称：</label>';
         html += '<div class=" col-sm-3"> ';
-        html += '<input type="text" class="form-control" name="config['+max+'][title]" value="" placeholder="中文名称" required/>';
-        html += '<p class="help-block">中文名称，不可与已存在的配置名称重复</p>';
+        html += '<input id="title-'+max+'" type="text" class="form-control " name="config['+max+'][title]" value="" onBlur="loseBlur(1, '+max+')" placeholder="中文名称" required/>';
+        html += '<p class="help-block title-'+max+'">中文名称，不可与已存在的配置名称重复</p>';
         html += '</div>';
         html += '</div>';
         html += '<div class="form-group">';
@@ -81,6 +82,45 @@
         $('hr[sort='+id+']').remove();
         $('div.node-panel-body[sort='+id+']').remove();
     }
+
+
+    function loseBlur(type, id){
+        if(type===0){
+            type="name";
+        }else if(type===1){
+            type="title";
+        }
+        var val = $('input#'+type+'-'+id).val();
+        if($.trim(val.length>0)){
+            $.ajax({
+                type: 'POST',
+                url: '/admin/system/verify',
+                data: {type: type, value: val},
+                success: function(result){
+                    console.log(result.content);
+                    $('p.'+type+'-'+id).text(result.content);
+                    if(result['status'] == false){  
+                        $('p.'+type+'-'+id).css({'color':'#f00'});
+                    }else{
+                        $('p.'+type+'-'+id).css({'color':'#00db00'});
+                    }
+                },
+                error: function(e){
+
+                }
+            });
+        }
+        
+
+    }
+
+    $(document).ready(function(){
+        $('form').bind("submit", function(){
+            if(!check){
+                return false;
+            }
+        });
+    });
 
 
 </script>
